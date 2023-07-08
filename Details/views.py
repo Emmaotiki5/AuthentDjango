@@ -46,7 +46,7 @@ def login(request):
             return render(request, 'login.html')
 
 def anime(request):   
-    return render(request, 'anime.html')
+    return render(request, 'login.html')
 def logout(request):
     auth.logout(request)
     return redirect('/')
