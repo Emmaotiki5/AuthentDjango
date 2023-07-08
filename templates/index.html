@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>Anime Website</title>
+    <style>
+        body {
+            background-image: url('{% static "img/Background.jpeg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                background-image: url('{% static "img/Background.jpeg" %}');
+            }
+        }
+        
+        @media (min-width: 480px) and (max-width: 767px) {
+            body {
+                background-image: url('{% static "img/SmallBg.jpeg" %}');
+            }
+        }
+        
+        @media (max-width: 412px) {
+            body {
+                background-image: url('{% static "img/MiniBg.jpeg" %}');
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Welcome</h1>
+    <div class="cta-buttons">
+        <a href="login" class="cta-button">Login</a>
+        <a href="register" class="cta-button">Sign Up</a>
+    </div>
+</body>
+</html>
