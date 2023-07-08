@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urls = 'Details.urls'
 
@@ -27,3 +28,4 @@ urlpatterns = [
     path('logout',include(urls)),
     path('register',include(urls)),
 ]
+urlpatterns += staticfiles_urlpatterns()
