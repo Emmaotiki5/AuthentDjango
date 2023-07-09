@@ -38,15 +38,15 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                return redirect('main.html')
+                return redirect('anime.html')
             else:
                 messages.info(request, 'Invalid Credentials')
                 return redirect('login')
         else:
             return render(request, 'login.html')
 
-def main(request):   
-    return render(request, 'main.html')
+def anime(request):   
+    return render(request, 'anime.html')
 def logout(request):
     auth.logout(request)
     return redirect('/')
