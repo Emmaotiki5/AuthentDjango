@@ -24,7 +24,7 @@ urlpatterns = [
     path('',      include(urls)),
     path('room',  include(urls)),
     path('login', include(urls)),
-    path('anime', include(urls)),
+    path('main', include(urls)),
     path('logout',include(urls)),
     path('register',include(urls)),
 ]
