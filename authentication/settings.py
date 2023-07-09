@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
-from django.conf.global_settings import STATIC_ROOT
+from django.conf.global_settings import STATIC_ROOT, DATABASES
 port = int(os.environ.get('PORT', 8000))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,27 +78,19 @@ WSGI_APPLICATION = 'authentication.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'Logins',
-#        'USER' : 'postgres',
-#        'HOST' : 'localhost',
-#        'PASSWORD': 'crabbyworllD.1',
-#   }
-#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'animestar',
         'USER': 'animestar_user',
-        'PASSWORD': 'Gz2S21QqnbrrLvBxHbAKLpXqEX8hQqFT',
+       'PASSWORD': 'Gz2S21QqnbrrLvBxHbAKLpXqEX8hQqFT',
         'HOST': 'dpg-ciktullgkuvinflalit0-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
 
-
+#postgres://animestar_user:Gz2S21QqnbrrLvBxHbAKLpXqEX8hQqFT@dpg-ciktullgkuvinflalit0-a/animestar
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
