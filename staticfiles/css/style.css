@@ -146,9 +146,20 @@ header .navbar a:hover {
     background-position: center;
     justify-content: flex-end;
     padding: 2rem 9%;
+    
 
 }
-
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    font-size: 50px;
+    font-weight: 600;
+    background: var(--red);
+    color: #fff;
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+}
 /*media query*/
 @media(max-width:991px){
     html {
