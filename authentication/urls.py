@@ -23,8 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',      include(urls)),
     path('room',  include(urls)),
-    path('login', include(urls)),
     path('anime', include(urls)),
+    path('login', include(urls)),
     path('logout',include(urls)),
     path('register',include(urls)),
 ]
