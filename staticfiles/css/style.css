@@ -133,6 +133,25 @@ header .navbar a:hover {
     background: var(--red);
 }
 
+.home{ 
+    padding: 0;
+
+}
+
+.home .box{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    justify-content: flex-end;
+    padding: 2rem 9%;
+
+}
+.box {
+    background-image: url(../img/Background.jpg) ;
+}
+
 
 
 

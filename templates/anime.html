@@ -17,12 +17,13 @@
     <title>Anime Website</title>
 
 
+
 </head>
 <body>
-    <<header>
+    <header>
         <a href="#" class="logo"><i class="fas fa-infinity"></i>Anime.</a>
         <nav class="navbar">
-            <a class="active" href="/anime">Home</a>
+            <a class="active" href="#home">Home</a>
             <a href="/anime/anime">Anime</a>
             <a href="/anime/action">Action</a>
             <a href="/anime/child">Child</a>
@@ -43,12 +44,33 @@
             <i class="fas fa-bars" id="menu-bar"></i>
             <i class="fas fa-search" id="search-bar"></i>           
             <a class="fas fa-heart" id="heart-bar"></a>
+        </div>
     </header>
+    
     
 
 
 
+<!--Home Section-->
 
+<section class="home" id="home">
+    <div class="home-slider">
+        <div class="wrapper">
+            <div class="slide">
+                <div class="box">
+                    <div class="content">
+                        {% for anim in animes %}
+                        <h2>{{ anim.title }}</h2>
+                        <p>{{anim.description|truncatewords:50 }}</p>
+                        <a class="btn"href="/anime/{{anim.title}}">Watch Now</a>   
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 

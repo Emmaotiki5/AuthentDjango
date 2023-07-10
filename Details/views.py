@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from django.contrib import messages
-
+from .models import Anime
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -18,17 +18,17 @@ def register(request):
         if password == password2:
             if User.objects.filter(email = email):
                 messages.info(request, "There is an acount with this email already")
-                return redirect('register')
+                return redirect('/register')
             elif User.objects.filter(username=username):
                 messages.info(request, "This username is already in use")
-                return redirect('register')
+                return redirect('/register')
             else:
                 user=User.objects.create_user(username=username, email=email, password=password2,first_name=firstname,last_name=lastname)
                 user.save()
-                return redirect('login')
+                return redirect('/login')
         else:
             messages.info(request, "Passwords do not match")
-            return redirect('register')
+            return redirect('/register')
     else:                       
         return render(request, 'register.html')
 def login(request):
@@ -41,12 +41,17 @@ def login(request):
                 return redirect('/anime')
             else:
                 messages.info(request, 'Invalid Credentials')
-                return redirect('login')
+                return redirect('/login')
         else:
             return render(request, 'login.html')
 
-def anime(request):   
-    return render(request, 'anime.html')
+def anime(request): 
+    animes=Anime.objects.all()
+    return render(request, 'anime.html',{'animes':animes})
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+
+
