@@ -75,7 +75,8 @@
         <div class="wrapper">
             <div class="slide">
                 <div class="box">
-                    <div class="content" style="color: white;">
+                    <div class="content" style="color: white; background-repeat:no-repeat; background-image: url('{% static 'img/Background.jpeg' %}');">
+
                         {% for anim in animes %}
                         <h2>{{ anim.title }}</h2>
                         <p>{{anim.description|truncatewords:50 }}</p>
