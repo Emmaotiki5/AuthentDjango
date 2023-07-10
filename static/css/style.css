@@ -148,13 +148,6 @@ header .navbar a:hover {
     padding: 2rem 9%;
 
 }
-.box {
-    background-image: url(../img/Background.jpg) ;
-}
-
-
-
-
 
 /*media query*/
 @media(max-width:991px){
