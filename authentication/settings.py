@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
 import os
-from django.conf.global_settings import STATIC_ROOT, DATABASES
+import re
+import mimetypes
+from django.conf.global_settings import DATABASES
+
 port = int(os.environ.get('PORT', 8000))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +31,7 @@ SECRET_KEY = 'django-insecure-*ji-6t&d09-frmtc=h($mt7q-k2%+g%9z16a#*s9k1wd1us+dq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'now.sh','localhost','127.0.0.1', 'animestream-omuh.onrender.com']
+ALLOWED_HOSTS = ['.vercel.app', 'now.sh', 'localhost', '127.0.0.1', 'animestream-omuh.onrender.com']
 
 
 # Application definition
@@ -79,19 +81,16 @@ WSGI_APPLICATION = 'authentication.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'verceldb',
         'USER': 'default',
-       'PASSWORD': 'Zs68AQSixOqj',
+        'PASSWORD': 'Zs68AQSixOqj',
         'HOST': 'ep-tight-snowflake-002188.us-east-1.postgres.vercel-storage.com',
         'PORT': '5432',
     }
 }
-
-#postgres://animestar_user:Gz2S21QqnbrrLvBxHbAKLpXqEX8hQqFT@dpg-ciktullgkuvinflalit0-a/animestar
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -127,12 +126,35 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATIC_MIME_TYPES = {
+    'application/javascript': ['.js'],
+}
+
+MIMETYPE_MAP = {
+    **dict.fromkeys(STATIC_MIME_TYPES['application/javascript'], 'application/javascript;charset=utf-8'),
+}
+
+def static_mimetype(name, default=None):
+    mimetypes.init()
+    return MIMETYPE_MAP.get(name, default)
+
+STATICFILES_MIMETYPES = [
+    (re.compile('.*'), static_mimetype),
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Awesome Font Link-->
     <link rel="stylesheet" href="{% static 'v6.4.0/css/all.css' %}">
-        <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-light.css' %}">
-            <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-regular.css' %}">
-                <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-solid.css' %}">
+    <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-light.css' %}">
+    <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-regular.css' %}">
+    <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-solid.css' %}">
     <!--Custom Style Link-->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="{% static 'Js/main.js'}"></script>
     <title>Anime Website</title>
-
-
-
 </head>
 <body>
     <header>
@@ -47,54 +42,28 @@
         </div>
     </header>
     
-    
-
-
-
-<!--Home Section-->
-
+<!-- Home Section -->
 <section class="home" id="home">
     <div class="home-slider">
         <div class="wrapper">
             <div class="slide">
                 <div class="box" style="background-repeat:no-repeat; background-image: url('{% static 'img/Background.jpeg' %}');">
-                    <div class="content" >
-
+                    <div class="content">
                         {% for anim in animes %}
-                        <h2>{{ anim.title }}</h2>
-                        <p>{{anim.description|truncatewords:50 }}</p>
-                        <a class="btn"href="/anime/{{anim.title}}">Watch Now</a>   
+                            <h2>{{ anim.title }}</h2>
+                            <p>{{ anim.description|truncatewords:50 }}</p>
+                            <a class="btn" href="/anime/{{ anim.title }}">Watch Now</a> 
+                            <li>{{ anime_search }}</li>  
                         {% endfor %}
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+</section>
 
+<!--Custom Js File-->
+<script src="{% static 'Js/main.js' %}"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--Custom Js File-->
-    <script src="{% static 'Js/main.js' %}"></script>
 </body>
 </html>
