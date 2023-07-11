@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from django.contrib import messages
 from .models import Anime
+from gogoanime import get_search_results, get_anime_details, get_anime_episode, get_anime_popular, get_anime_newseason, get_anime_recent
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -45,9 +46,20 @@ def login(request):
         else:
             return render(request, 'login.html')
 
-def anime(request): 
-    animes=Anime.objects.all()
-    return render(request, 'anime.html',{'animes':animes})
+def anime(request):
+    animes = Anime.objects.all()
+    titles = [anime.title for anime in animes]
+    search_results = {}
+
+    for title in titles:
+        anime_episode = get_search_results(query=title, page=1)
+        search_results[title] = anime_episode
+
+    return render(request, 'anime.html', {'animes': animes, 'search_results': search_results})
+
+
+
+
 def logout(request):
     auth.logout(request)
     return redirect('/')

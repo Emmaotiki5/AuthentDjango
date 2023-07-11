@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,12 +52,26 @@
             <div class="slide">
                 <div class="box" style="background-repeat:no-repeat; background-image: url('{% static 'img/Background.jpeg' %}');">
                     <div class="content">
-                        {% for anim in animes %}
-                            <h2>{{ anim.title }}</h2>
-                            <p>{{ anim.description|truncatewords:50 }}</p>
-                            <a class="btn" href="/anime/{{ anim.title }}">Watch Now</a> 
-                            <li>{{ anime_search }}</li>  
-                        {% endfor %}
+                        {% for anime in animes %}
+                        <h2>{{ anime.title }}</h2>
+                        <p>{{ anime.description|truncatewords:50 }}</p>
+                        <a class="btn" href="/anime/{{ anime.title }}">Watch Now</a> 
+                        <ul>
+                            {% with results=search_results|get_item:anime.title %}
+                                {% for result in results %}
+                                    <li>{{ result.title }}</li>
+                                {% endfor %}
+                            {% endwith %}
+                        </ul>
+                    {% endfor %}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        
                     </div>
                 </div>
             </div>

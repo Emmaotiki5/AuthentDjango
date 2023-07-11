@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Details'
+    'Details',
+    'Details.templatetags',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +72,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                 'custom_tags':'Details.templatetags.custom_tags',  # Replace with your app name and tag module
+            },
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'authentication.wsgi.application'
 
