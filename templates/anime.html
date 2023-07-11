@@ -49,10 +49,11 @@
 <section class="home" id="home">
     <div class="home-slider">
         <div class="wrapper">
+            {% for anime in animes %}
             <div class="slide">
                 <div class="box" style="background-repeat:no-repeat; background-image: url('{% static 'img/Background.jpeg' %}');">
                     <div class="content">
-                        {% for anime in animes %}
+                        
                         <h2>{{ anime.title }}</h2>
                         <p>{{ anime.description|truncatewords:50 }}</p>
                         <a class="btn" href="/anime/{{ anime.title }}">Watch Now</a> 
@@ -63,7 +64,7 @@
                                 {% endfor %}
                             {% endwith %}
                         </ul>
-                    {% endfor %}
+                {% endfor %}
                     
                     
                     
