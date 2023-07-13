@@ -9,6 +9,9 @@ from .API import Kimi as api
 import gogo_scraper as gs
 from bs4 import BeautifulSoup
 import requests
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 
 
 # Create your views here.

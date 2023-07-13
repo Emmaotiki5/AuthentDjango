@@ -15,6 +15,9 @@ import os
 import re
 import mimetypes
 from django.conf.global_settings import DATABASES
+import uuid
+
+unique_cache_key = str(uuid.uuid4())
 
 port = int(os.environ.get('PORT', 8000))
 
@@ -56,8 +59,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': unique_cache_key,
+        'TIMEOUT': 3600,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+        }
+    }
+}
 ROOT_URLCONF = 'authentication.urls'
 
 TEMPLATES = [
