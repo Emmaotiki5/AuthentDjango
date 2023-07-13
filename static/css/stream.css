@@ -36,3 +36,15 @@ body {
     margin-right: auto; /* Center the description horizontally */
     color: white;
 }
+.download-btn {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .download-btn:hover {
+    background-color: black;
+    color: red;
+  }
