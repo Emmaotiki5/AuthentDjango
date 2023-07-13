@@ -9,25 +9,21 @@ from .API import Kimi as api
 import gogo_scraper as gs
 from bs4 import BeautifulSoup
 import requests
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
-class CacheMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
 
-    def __call__(self, request):
-        response = self.get_response(request)
-        response['Cache-Control'] = 'max-age=900'  # Set cache control for 15 minutes
-        return response
+
 
 
 
 
 
 # Create your views here.
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def index(request):
     return render(request, 'index.html')
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def register(request):
     if request.method == 'POST':
         firstname=request.POST['firstname']
@@ -53,7 +49,7 @@ def register(request):
             return redirect('/register')
     else:                       
         return render(request, 'register.html')
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def login(request):
         if request.method == 'POST':
             username = request.POST['username']
@@ -67,7 +63,7 @@ def login(request):
                 return redirect('/login')
         else:
             return render(request, 'login.html')
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def anime(request):
     animes = Anime.objects.all()
     titles = [anime.title for anime in animes]
@@ -111,36 +107,48 @@ def find_download_link(anime_id, anime_episode):
             return modified_url
 
     return None
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def anime_details(request, pk):
+    cache_key = f'anime_details_{pk}'  # Create a unique cache key based on the pk
+
+    # Try to get the response from the cache
+    response = cache.get(cache_key)
+    if response is not None:
+        return response
+
     anime_details_list = get_anime_details(id=pk)
     describe = anime_details_list[0].get('description') if anime_details_list else None
     picture = anime_details_list[0].get('image') if anime_details_list else None
 
     episode_number = 1
     episode_list = []
+    download_links = []
     download_link = find_download_link(pk, episode_number)
     while download_link is not None:
         episode_list.append(episode_number)
+        download_links.append(download_link)
         episode_number += 1
         download_link = find_download_link(pk, episode_number)
+
+    # Preprocess episode_list and download_links using zip function
+    episode_download_list = zip(episode_list, download_links)
 
     context = {
         'pk': pk,
         'describe': describe,
         'picture': picture,
-        'episode_list': episode_list
+        'episode_download_list': episode_download_list
     }
 
-    return render(request, 'stream.html', context)
+    response = render(request, 'stream.html', context)
+
+    # Cache the response for 15 minutes
+    cache.set(cache_key, response, 60 * 15)
+
+    return response
 
 
 
-index = CacheMiddleware(index)
-register = CacheMiddleware(register)
-login = CacheMiddleware(login)
-anime = CacheMiddleware(anime)
-logout = CacheMiddleware(logout)
-anime_details = CacheMiddleware(anime_details)
+
 
 
