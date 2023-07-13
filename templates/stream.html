@@ -1,0 +1,32 @@
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stream.css' %}?version={{css_version}}">
+{% endblock stylesheet%}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <img src="{{ picture }}" class="cover-image" alt="Error">
+                <p class="description">{{ describe }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ul class="episode-list">
+                    {% for episode in episode_list %}
+                        <li>
+                            Episode {{ episode }}
+                            <a href="{% url 'download' episode %}" class="download-btn">Download Now</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block scripts %}
+{% endblock scripts %}

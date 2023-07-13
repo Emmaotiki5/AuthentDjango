@@ -86,6 +86,23 @@ header .icons #menu-bar {
     display: none;
 }
 
+.btn{
+    margin-top:1rem;
+    display: inline-block;
+    font-size: 1.7rem;
+    color: #fff;
+    background: var(--red);
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: .8rem 3rem;
+}
+
+.btn:hover{
+    background: var(--black);
+    color: var(--red);
+    letter-spacing: .1rem;
+}
+
 /* Dropdown Styles */
 .dropdown {
     position: relative;
@@ -133,33 +150,69 @@ header .navbar a:hover {
     background: var(--red);
 }
 
-.home{ 
-    padding: 0;
-
+.home{
+    padding:0;
 }
 
 .home .box{
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display: flex;
+    align-items: center;
+    background-size: cover !important;
+    background-position: center !important;
+    justify-content:flex-end;
+    padding:2rem 9%;
+}
+
+.home .box {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-size: cover;
-    background-position: center;
+    background-size: cover !important;
+    background-position: center !important;
     justify-content: flex-end;
     padding: 2rem 9%;
-    
+}
 
+
+.home .box .content {
+    width: 50rem;
+    height: 100%;
 }
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    border-radius: .5rem;
-    font-size: 50px;
-    font-weight: 600;
-    background: var(--red);
+.home .box .content .image-wrapper {
+    flex: 0 0 50%;
+}
+
+.home .box .content .image-wrapper img {
+    width: 100%;
+}
+
+.home .box .content .text-wrapper {
+    flex: 0 0 50%;
+    padding-left: 2rem; /* Adjust the padding as needed */
+}
+
+.home .box .content h3 {
+    font-size: 6rem;
     color: #fff;
-    margin-top: 1rem;
-    box-shadow: var(--box-shadow);
+    padding-top: .5rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
 }
+
+
+.home .box .content p {
+    line-height: 2;
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+
+/* Adjust the styling for other elements as needed */
+
+
 /*media query*/
 @media(max-width:991px){
     html {

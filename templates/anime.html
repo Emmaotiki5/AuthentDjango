@@ -6,6 +6,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          // Initialize Swiper
+          var swiper = new Swiper('.home-slider', {
+            // Swiper configuration options
+          });
+        });
+    </script>
     <!--Awesome Font Link-->
     <link rel="stylesheet" href="{% static 'v6.4.0/css/all.css' %}">
     <link rel="stylesheet" href="{% static 'v6.4.0/css/sharp-light.css' %}">
@@ -14,7 +22,12 @@
 
     <!--Custom Style Link-->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Swiper_10.0.4_swiper-bundle.min.css' %}">
+    <link
+  rel="stylesheet"
+  href="{% static 'css/Swiper_10.0.4_swiper-bundle.min.css' %}"
+/>
+
+        
     <title>Anime Website</title>
 </head>
 <body>
@@ -47,42 +60,62 @@
     
 <!-- Home Section -->
 <section class="home" id="home">
-    <div class="home-slider">
-        <div class="wrapper">
+    <div class="swiper home-slider">
+        <div class="swiper-wrapper">
             {% for anime in animes %}
-            <div class="slide">
-                <div class="box" style="background-repeat:no-repeat; background-image: url('{% static 'img/Background.jpeg' %}');">
-                    <div class="content">
-                        
-                        <h2>{{ anime.title }}</h2>
-                        <p>{{ anime.description|truncatewords:50 }}</p>
-                        <a class="btn" href="/anime/{{ anime.title }}">Watch Now</a> 
-                        <ul>
-                            {% with results=search_results|get_item:anime.title %}
-                                {% for result in results %}
-                                    <li>{{ result.title }}</li>
-                                {% endfor %}
-                            {% endwith %}
-                        </ul>
-                {% endfor %}
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                        
+                <div class="swiper-slide">
+                    <div class="box">
+                        <div class="content">
+                            <div class="image-wrapper">
+                                <img src="{% static 'img/Background' %}{{anime.id}}.png" alt="Episode Image">
+                            </div>
+                            <div class="text-wrapper">
+                                <h3>{{ anime.title }}</h3>
+                                <p>{{ anime.description }}</p>
+
+                                <ul>
+                                    {% with results=search_results|get_item:anime.title %}
+                                    {% for result in results %}
+                                        <li class="animename" style="color: red; font-size: 1.5rem">{{ result.title }}</li>
+                                        <li>{{ result.description }}</li>
+                                        <li><img src="{{ result.image_link }}" height="500" width="354" alt="Episode Image"></li>
+                                        {% with anime_id=id_results|get_item:anime.title %}
+                                            {% for id in anime_id %}
+                                                {% if result.id == id %}
+                                                    <li>
+                                                        
+                                                        <a href="anime/stream/{{ id }}" class="btn">Watch Now</a>
+                                                        
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endwith %} 
+                                        <br>
+                                    {% endfor %}
+                                {% endwith %}
+                                
+                                
+                                
+                                
+                                
+                                
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<!--Custom Js File-->
-<script src="{% static 'Js/main.js' %}"></script>
-<script src="{% static 'Js/Swiper_10.0.4_swiper-bundle.min.js' %}"></script>
 
+
+
+
+
+
+<!--Custom Js File-->
+<script src="{% static 'Js/Swiper_10.0.4_swiper-bundle.js'%}" defer data-deferred="1"></script>  <script src="{% static 'Js/main.js' %}" defer data-deferred="1"></script>
 </body>
 </html>

@@ -27,5 +27,6 @@ urlpatterns = [
     path('login', include(urls)),
     path('logout',include(urls)),
     path('register',include(urls)),
+    path('anime/stream/<str:pk>', include(urls)),
 ]
 urlpatterns += staticfiles_urlpatterns()

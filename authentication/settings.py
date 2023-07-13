@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-*ji-6t&d09-frmtc=h($mt7q-k2%+g%9z16a#*s9k1wd1us+dq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'now.sh', 'localhost', '127.0.0.1', 'animestream-omuh.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'authentication.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'verceldb',
-        'USER': 'default',
-        'PASSWORD': 'Zs68AQSixOqj',
-        'HOST': 'ep-tight-snowflake-002188.us-east-1.postgres.vercel-storage.com',
-        'PORT': '5432',
+        'NAME': 'animestar',
+        'USER': 'animestar_user',
+        'PASSWORD': 'Gz2S21QqnbrrLvBxHbAKLpXqEX8hQqFT',
+        'HOST': 'dpg-ciktullgkuvinflalit0-a.oregon-postgres.render.com',
+        'PORT': '',
     }
 }
 

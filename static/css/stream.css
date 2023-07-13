@@ -1,0 +1,38 @@
+/* stream.css */
+html{
+    background-color: black;
+}
+/* Body styles */
+body {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Image styles */
+.cover-image {
+    width: 1280px;
+    height: 720px;
+}
+
+/* Container styles */
+.container {
+    padding: 20px;
+    max-width: 960px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+/* Description styles */
+.description {
+    margin-top: 5rem;
+    margin-left: 0; /* Aligns the description to the left */
+    max-width: 50%; /* Set the maximum width for the description */
+    margin-right: auto; /* Center the description horizontally */
+}
+.episode-list{
+    margin-top: 5rem;
+    margin-left: 0; /* Aligns the description to the left */
+    max-width: 50%; /* Set the maximum width for the description */
+    margin-right: auto; /* Center the description horizontally */
+    color: white;
+}
