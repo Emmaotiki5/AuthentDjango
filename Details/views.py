@@ -15,8 +15,10 @@ from django.views.decorators.cache import cache_page
 
 
 # Create your views here.
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def index(request):
     return render(request, 'index.html')
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def register(request):
     if request.method == 'POST':
         firstname=request.POST['firstname']
@@ -42,6 +44,7 @@ def register(request):
             return redirect('/register')
     else:                       
         return render(request, 'register.html')
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def login(request):
         if request.method == 'POST':
             username = request.POST['username']
@@ -55,7 +58,7 @@ def login(request):
                 return redirect('/login')
         else:
             return render(request, 'login.html')
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def anime(request):
     animes = Anime.objects.all()
     titles = [anime.title for anime in animes]
@@ -80,7 +83,7 @@ def anime(request):
 
 
 
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def logout(request):
     auth.logout(request)
     return redirect('/')
@@ -99,7 +102,7 @@ def find_download_link(anime_id, anime_episode):
             return modified_url
 
     return None
-
+@cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
 def anime_details(request, pk):
     anime_details_list = get_anime_details(id=pk)
     describe = anime_details_list[0].get('description') if anime_details_list else None
