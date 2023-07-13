@@ -19,7 +19,8 @@
                     <!-- stream.html -->
                     {% for episode, download_link in episode_download_list %}
                     <li>
-                        Episode {{ episode }}
+                        <p>Episode {{ episode }}<p>
+                            <br>
                         <a href="{{ download_link }}" class="download-btn">Download Now</a>
                     </li>
                 {% endfor %}
