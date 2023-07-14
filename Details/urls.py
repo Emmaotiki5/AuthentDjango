@@ -10,6 +10,6 @@ urlpatterns = [
     path('anime', views.anime, name='anime'),
     path ('logout', views.logout, name='logout'),
     path('register', views.register, name='register'),
-    path('anime/stream/<str:pk>', views.anime_details, name='anime_details'),
+    path('anime/stream/<str:anime_id>', views.anime_details, name='anime_details'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

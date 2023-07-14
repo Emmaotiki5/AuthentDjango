@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth # type: ignore
 from django.contrib import messages
-from .models import Anime
+from .models import Anime, DownloadLink
 from gogoanime import get_search_results, get_anime_details, get_anime_recent  # type: ignore
 import gogo_scraper as gs
 from bs4 import BeautifulSoup
 import requests
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.http import HttpResponseNotFound
+
+
 
 
 
@@ -90,59 +94,24 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-def find_download_link(anime_id, anime_episode):
-    gs.BASE_URL = "https://gogoanimehd.to"
-    link = gs.getEpisode(anime_id, anime_episode)
-    r = requests.get(link)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    links = soup.find_all('a')
 
-    for link in links:
-        url = link.get('href', 'No URL available')
-        if "https://gotaku1.com/download" in url:
-            modified_url = url.replace("Gogoanime", "")
-            return modified_url
-
-    return None
 @cache_page(60 * 15)  # Cache the page for 15 minutes (900 seconds)
-def anime_details(request, pk):
-    cache_key = f'anime_details_{pk}'  # Create a unique cache key based on the pk
-
-    # Try to get the response from the cache
-    response = cache.get(cache_key)
-    if response is not None:
-        return response
-
-    anime_details_list = get_anime_details(id=pk)
-    describe = anime_details_list[0].get('description') if anime_details_list else None
-    picture = anime_details_list[0].get('image') if anime_details_list else None
-
-    episode_number = 1
-    episode_list = []
-    download_links = []
-    download_link = find_download_link(pk, episode_number)
-    while download_link is not None:
-        episode_list.append(episode_number)
-        download_links.append(download_link)
-        episode_number += 1
-        download_link = find_download_link(pk, episode_number)
-
-    # Preprocess episode_list and download_links using zip function
-    episode_download_list = zip(episode_list, download_links)
+def anime_details(request, anime_id):
+    anime = Anime.objects.get(anime_id=anime_id)
+    describe = anime.description
+    picture = anime.image_url
+    episode_download_list = anime.download_links.all().values_list('episode_number', 'link')
 
     context = {
-        'pk': pk,
+        'anime_id': anime.anime_id,
         'describe': describe,
         'picture': picture,
         'episode_download_list': episode_download_list
     }
 
-    response = render(request, 'stream.html', context)
+    return render(request, 'stream.html', context)
 
-    # Cache the response for 15 minutes
-    cache.set(cache_key, response, 60 * 15)
-
-    return response
+   
 
 
 

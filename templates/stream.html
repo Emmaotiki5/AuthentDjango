@@ -17,11 +17,11 @@
             <div class="col-12">
                 <ul class="episode-list">
                     <!-- stream.html -->
-                    {% for episode, download_link in episode_download_list %}
+                    {% for episode_number, download_link in episode_download_list %}
                     <li>
-                        <p>Episode {{ episode }}<p>
-                            <br>
-                        <a href="{{ download_link }}" class="download-btn">Download Now</a>
+                        <p>Episode {{ episode_number }}</p>
+                        <br>
+                        <a href="{{ download_link.link }}" class="download-btn">Download Now</a>
                     </li>
                 {% endfor %}
 
