@@ -8,6 +8,8 @@ from datetime import datetime
 class Anime(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    image_url = models.URLField(max_length=500)
+    anime_id =models.CharField(max_length=100)
     
 
     

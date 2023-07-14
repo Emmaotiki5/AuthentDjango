@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth # type: ignore
 from django.contrib import messages
 from .models import Anime
-from gogoanime import get_search_results, get_anime_details  # type: ignore
+from gogoanime import get_search_results, get_anime_details, get_anime_recent  # type: ignore
 import gogo_scraper as gs
 from bs4 import BeautifulSoup
 import requests
@@ -143,8 +143,6 @@ def anime_details(request, pk):
     cache.set(cache_key, response, 60 * 15)
 
     return response
-
-
 
 
 
